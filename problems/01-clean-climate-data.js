@@ -11,7 +11,11 @@ For example, it should return:
 [ "Amsterdam, Netherlands", "Athens, Greece", ...plus 103 more cities ]
 */
 
-// Your code here
+const listAllCitiesWithCountries = (arr) => {
+    returnArray = []
+    arr.forEach(obj => returnArray.push(obj.city + ', ' + obj.country))
+    return returnArray;
+}
 
 
 /* 02. `listAllUsCities`
@@ -24,7 +28,20 @@ For example, it should return:
 [ 'Atlanta GA, United States', 'Austin TX, United States', ...plus more cities ]
 */
 
-// Your code here
+const listAllUsCities = (arr) => {
+    returnArray = []
+    for (let i = 0; i < arr.length; i++) {
+        const obj = arr[i];
+        for (let key in obj) {
+            if (key === 'country') {
+                if (obj[key].includes("United States")) {
+                    returnArray.push(obj.city+", "+obj.country)
+                }
+            }
+        }
+    }
+    return returnArray;
+}
 
 
 
@@ -36,10 +53,25 @@ object including every city name, pointing to an array of IDs for that city.
 For example, if `Athens` showed up only once with an id of 2, and 'Mexico City'
 was duplicated in id 3, 7, and 9, the returned object should look like:
 { 'Athens: [ 2 ], 'Mexico City': [ 3, 7, 9 ] }
+
+WE WANT an object with city names as keys, array of ids as values
 */
 
-// Your code here
-
+const findDuplicates = (arr) => {
+    let returnObj = {};
+    for (let i = 0; i < arr.length; i++) {
+        const obj = arr[i];
+        for (let key in obj) {
+            if (key === "city") {
+                if (returnObj[obj[key]] === undefined) {
+                returnObj[obj[key]] = [obj.id]
+                }
+                else returnObj[obj[key]].push(obj.id)
+            }
+        }
+    }
+    return returnObj
+}
 
 /* 04. `returnDuplicate` Which city object should be corrected in
 the data set?
@@ -54,7 +86,16 @@ HINT: Use documentation to research the `find()` method in JavaScript. You may,
 but do not have to, use this method to solve this problem.
 */
 
-// Your code here
+const returnDuplicate = (arr) => {
+    let dupObj = findDuplicates(arr);
+    for (let key in dupObj) {
+        if (dupObj[key].length > 1) {
+            let objID = dupObj[key][dupObj[key].length - 1]
+            return arr.find(el => el.id === objID);
+        }
+    }
+}
+
 
 /* 05. `correctDuplicate` Correct the city name of the duplicated city.
 
@@ -68,7 +109,11 @@ with id of 5 to 'Nice' and then return that object with the corrected city name.
 HINT: Can you use functions you have already written to help solve this problem?
 */
 
-// Your code here
+const correctDuplicate = (arr, str) => {
+    obj = returnDuplicate(arr)
+    obj.city = str;
+    return obj;
+}
 
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS  LINE*****************/

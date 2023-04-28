@@ -30,7 +30,36 @@ Note: You can solve this in multiple ways. Try using a few advanced array
 methods. Can you use helper methods to separate out the logic?
 */
 
-// Your code here
+const temperatureRange = (arr) => {
+  newArr = []
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+for (let i = 0; i < arr.length; i++) {
+    const obj = arr[i];
+    let yearArray = obj.monthlyAvg
+    let mtr = []
+    for (let j = 0; j < yearArray.length; j++){
+      let monthObj = yearArray[j]
+    let pusher = {
+      month: months[j],
+      high: monthObj.high,
+      low: monthObj.low,
+      range: (monthObj.high - monthObj.low),
+    }
+    mtr.push(pusher)
+    }
+    obj.monthlyTemperatureRange = mtr
+    const newObj = {
+      city: obj.city,
+      country: obj.country,
+      id: obj.id,
+      monthlyTemperatureRange: obj.monthlyTemperatureRange
+    }
+    newArr.push(newObj)
+
+}
+return newArr
+}
+
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS  LINE*****************/
 
